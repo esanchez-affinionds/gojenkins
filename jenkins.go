@@ -27,6 +27,7 @@ import (
 
 // Basic Authentication
 type BasicAuth struct {
+	Encode   bool
 	Username string
 	Password string
 }
@@ -570,6 +571,9 @@ func CreateJenkins(client *http.Client, base string, auth ...interface{}) *Jenki
 	}
 	if len(auth) == 2 {
 		j.Requester.BasicAuth = &BasicAuth{Username: auth[0].(string), Password: auth[1].(string)}
+	}
+	if len(auth) == 3 {
+		j.Requester.BasicAuth = &BasicAuth{Username: auth[0].(string), Password: auth[1].(string), Encode: auth[2].(bool)}
 	}
 	return j
 }
